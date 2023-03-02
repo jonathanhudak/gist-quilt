@@ -1,5 +1,6 @@
 {
     "tasks": {
-        "dev": "deno run --allow-net --watch gq-app.ts"
+        "dev": "deno run --allow-net --watch gq-app.ts",
+        "uno": "deno run --allow-net --watch uno.ts"
     }
 }

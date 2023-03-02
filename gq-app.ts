@@ -1,22 +1,5 @@
 import { serve } from "https://deno.land/std@0.178.0/http/server.ts";
-
-interface GistFile {
-  type: string;
-  content: string;
-}
-
-const fetchGist = async (id: string) => {
-  const res = await fetch(`https://api.github.com/gists/${id}`);
-  const gistData = await res.json();
-  const { files } = gistData;
-  const [[, file]] = Object.entries(files as GistFile[]);
-  switch (file.type) {
-    case "application/json":
-      return JSON.parse(file.content);
-    default:
-      return file.content;
-  }
-};
+import { fetchGist } from "./fetchGist.ts";
 
 const manifestId = "0ac5dd5b9515626f3b93497804ffdc98";
 
