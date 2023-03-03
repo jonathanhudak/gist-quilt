@@ -10,6 +10,8 @@
 ```
 brew install gh
 
+cd gists
+
 gh gist create --public gq-nav.html
 gh gist create --public gq-footer.html
 gh gist create --public gq-home.html
