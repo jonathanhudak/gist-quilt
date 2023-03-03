@@ -28,6 +28,7 @@ async function home(ctx: Context) {
 
       <hr/>
       <h2>Client Module</h2>
+      <a href="https://gist.github.com/jonathanhudak/f4917f23434b8f8b6bf0e55c9c3333b2">Loaded from this gist</a>
       <script>
       ${clientModule}
       </script>
@@ -42,6 +43,7 @@ async function home(ctx: Context) {
 
 const router = new Router();
 router.get("/", home);
+router.get("/about", home);
 const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
