@@ -1,14 +1,11 @@
 import { Application, Router, Context } from "https://deno.land/x/oak/mod.ts";
 import { fetchGist } from "./fetchGist.ts";
-import { loadClientTSModuleFromGist } from "./loadClientModule.ts";
 const manifestId = "0ac5dd5b9515626f3b93497804ffdc98";
 
 async function home(ctx: Context) {
   const manifest = await fetchGist(manifestId);
   const url = new URL(ctx.request.url);
-  const clientModule = await loadClientTSModuleFromGist(
-    "f4917f23434b8f8b6bf0e55c9c3333b2"
-  );
+  const clientModule = await fetchGist("f4917f23434b8f8b6bf0e55c9c3333b2");
 
   const getPage = async (path: string) => {
     const page = manifest.routes[path];
@@ -32,7 +29,7 @@ async function home(ctx: Context) {
       <hr/>
       <h2>Client Module</h2>
       <script>
-      ${clientModule.code}
+      ${clientModule}
       </script>
 
       <hr/>
