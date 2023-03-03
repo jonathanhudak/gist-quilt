@@ -1,12 +1,14 @@
-import { serve } from "https://deno.land/std@0.178.0/http/server.ts";
+import { Application, Router, Context } from "https://deno.land/x/oak/mod.ts";
 import { fetchGist } from "./fetchGist.ts";
-
+import { loadClientTSModuleFromGist } from "./loadClientModule.ts";
 const manifestId = "0ac5dd5b9515626f3b93497804ffdc98";
 
-async function handler(req: Request): Promise<Response> {
+async function home(ctx: Context) {
   const manifest = await fetchGist(manifestId);
-  const url = new URL(req.url);
-  console.log(manifest);
+  const url = new URL(ctx.request.url);
+  const clientModule = await loadClientTSModuleFromGist(
+    "f4917f23434b8f8b6bf0e55c9c3333b2"
+  );
 
   const getPage = async (path: string) => {
     const page = manifest.routes[path];
@@ -16,7 +18,7 @@ async function handler(req: Request): Promise<Response> {
     return await fetchGist(page);
   };
 
-  const body = `<!DOCTYPE html>
+  ctx.response.body = `<!DOCTYPE html>
     <html>
     <head>
     <meta charset="utf-8">
@@ -26,16 +28,25 @@ async function handler(req: Request): Promise<Response> {
     <body>
       ${await fetchGist(manifest.nav)}
       ${await getPage(url.pathname)}
+
+      <hr/>
+      <h2>Client Module</h2>
+      <script>
+      ${clientModule.code}
+      </script>
+
+      <hr/>
+
       ${await fetchGist(manifest.footer)}
     </body>
     </html>
   `;
-  return new Response(body, {
-    status: 200,
-    headers: {
-      "content-type": "text/html; charset=utf-8",
-    },
-  });
 }
 
-serve(handler);
+const router = new Router();
+router.get("/", home);
+const app = new Application();
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+await app.listen({ port: 8000 });

@@ -1,6 +1,10 @@
 {
     "tasks": {
-        "dev": "deno run --allow-net --watch gq-app.ts",
-        "uno": "deno run --allow-net --watch uno.ts"
+        "dev": "deno run --allow-net --allow-read --allow-write --allow-env --watch --unstable gq-app.ts",
+        "uno": "deno run --allow-net --watch --unstable uno.ts"
+    },
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "jsxImportSource": "https://esm.sh/react"
     }
 }
