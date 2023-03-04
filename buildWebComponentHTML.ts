@@ -20,7 +20,6 @@ type WebComponentConfig = ScriptConfig | StyleConfig | HTMLConfig;
 export function buildWebComponentNode(config: WebComponentConfig) {
   switch (config.type) {
     case "script":
-      console.log("script", config);
       return `<script ${Object.entries(config.attributes || {})
         .map(([key, value]) => `${key}="${value}"`)
         .join(" ")}>${config.value || ""}</script>`;

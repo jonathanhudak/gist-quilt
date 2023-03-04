@@ -1,8 +1,8 @@
 import { Octokit } from "https://cdn.skypack.dev/octokit?dts";
-import { config } from "https://deno.land/x/dotenv/mod.ts";
 
-const { GITHUB_PERSONAL_ACCESS_TOKEN } = config();
-const octokit = new Octokit({ auth: GITHUB_PERSONAL_ACCESS_TOKEN });
+const octokit = new Octokit({
+  auth: Deno.env.get("GITHUB_PERSONAL_ACCESS_TOKEN"),
+});
 
 interface GistFile {
   type: string;
