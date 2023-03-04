@@ -35,3 +35,6 @@ deno task dev
 
 * https://cli.github.com/manual/gh_gist
 * https://deno.land/manual@v1.31.1/runtime/http_server_apis#a-hello-world-server*
+* https://deno.land/x/dotenv@v3.2.0
+* https://github.com/octokit/octokit.js/
+* https://octokit.github.io/rest.js/v19#gists-get
